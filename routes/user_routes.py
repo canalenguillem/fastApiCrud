@@ -1,3 +1,4 @@
+# routes/user_routes.py
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from config.database import SessionLocal, engine, Base
@@ -6,10 +7,12 @@ from schemas.user import UserCreate, User as UserSchema, Role as RoleSchema
 from cryptography.fernet import Fernet
 from config.settings import SECRET_KEY
 
-
 Base.metadata.create_all(bind=engine)
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/users",
+    tags=["users"]
+)
 
 
 def get_db():
@@ -20,7 +23,7 @@ def get_db():
         db.close()
 
 
-@router.post("/users/", response_model=UserSchema)
+@router.post("/", response_model=UserSchema)
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
     fernet = Fernet(SECRET_KEY)
     hashed_password = fernet.encrypt(
@@ -34,7 +37,7 @@ def create_user(user: UserCreate, db: Session = Depends(get_db)):
     return db_user
 
 
-@router.get("/users/{user_id}", response_model=UserSchema)
+@router.get("/{user_id}", response_model=UserSchema)
 def read_user(user_id: int, db: Session = Depends(get_db)):
     db_user = db.query(User).filter(User.id == user_id).first()
     if db_user is None:
@@ -42,7 +45,7 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
     return db_user
 
 
-@router.put("/users/{user_id}/role/{role_id}", response_model=UserSchema)
+@router.put("/{user_id}/role/{role_id}", response_model=UserSchema)
 def update_user_role(user_id: int, role_id: int, db: Session = Depends(get_db)):
     db_user = db.query(User).filter(User.id == user_id).first()
     if db_user is None:
@@ -58,7 +61,7 @@ def update_user_role(user_id: int, role_id: int, db: Session = Depends(get_db)):
     return db_user
 
 
-@router.get("/users/", response_model=list[UserSchema])
+@router.get("/", response_model=list[UserSchema])
 def list_users(db: Session = Depends(get_db)):
-    users = db.query(User).join(Role).all()
+    users = db.query(User).all()
     return users
