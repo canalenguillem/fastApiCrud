@@ -1,5 +1,13 @@
-# schemas/user.py
 from pydantic import BaseModel
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    username: str | None = None
 
 
 class RoleBase(BaseModel):
@@ -10,21 +18,26 @@ class Role(RoleBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class UserBase(BaseModel):
-    name: str
     email: str
 
 
 class UserCreate(UserBase):
     password: str
+    name: str  # Añadir este campo
 
 
 class User(UserBase):
     id: int
-    role: Role  # Relación con el rol
+    name: str
+    role: Role
 
     class Config:
-        orm_mode = True
+        from_attributes = True
+
+
+class UserDeleteResponse(BaseModel):
+    message: str

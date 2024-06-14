@@ -2,7 +2,7 @@ fastapi
 uvicorn
 sqlalchemy
 pymysql
-pydantic
-cryptography
 python-decouple
-fastapi-cors
+python-jose
+passlib[bcrypt]
+cryptography
