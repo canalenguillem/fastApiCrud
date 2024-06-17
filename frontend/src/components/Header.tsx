@@ -1,21 +1,21 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../contexts/AuthContext";
+import { useAuth } from "../contexts/AuthContext"; // Asegúrate de importar useAuth
 import "./Header.css";
 
-const Header: React.FC = () => {
-  const { user, logout } = useContext(AuthContext);
+const Header = () => {
+  const { logout } = useAuth();
 
   return (
     <header className="header">
-      <Link to="/" className="logo-link">
-        <img src="/logo.png" alt="Enguillem App Logo" className="logo" />
-      </Link>
+      <div className="logo">
+        <Link to="/">Logo</Link>
+      </div>
       <nav className="menu">
-        {/* Aquí puedes agregar más enlaces de navegación */}
+        <Link to="/">Home</Link>
+        <Link to="/profile">Profile</Link>
       </nav>
-      <div className="user-info">
-        <span>{user?.name}</span>
+      <div className="profile">
         <button onClick={logout}>Logout</button>
       </div>
     </header>

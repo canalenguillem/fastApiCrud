@@ -1,10 +1,17 @@
 import React from "react";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import "./Home.css"; // Crear o actualizar el archivo Home.css para los estilos
 
-const Home: React.FC = () => {
+const Home = () => {
   return (
-    <div>
-      <h1>Welcome to Enguillem App</h1>
-    </div>
+    <>
+      <Header />
+      <div className="content">
+        <h1>Welcome to the Dashboard</h1>
+      </div>
+      <Footer />
+    </>
   );
 };
 

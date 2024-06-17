@@ -1,34 +1,33 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #282c34;
-    padding: 20px;
-    color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  z-index: 1000;
 }
 
-.logo-link img {
-    width: 100px;
+.logo a {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
 }
 
-.menu {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
+.menu a {
+  margin: 0 10px;
+  color: white;
+  text-decoration: none;
 }
 
-.user-info {
-    display: flex;
-    align-items: center;
-}
-
-.user-info span {
-    margin-right: 10px;
-}
-
-.user-info button {
-    background-color: #61dafb;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
+.profile button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
 }
